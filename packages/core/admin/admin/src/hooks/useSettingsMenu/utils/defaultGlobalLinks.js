@@ -1,5 +1,3 @@
-import adminPermissions from '../../../permissions';
-
 const defaultGlobalLinks = [
   {
     intlLabel: { id: 'Settings.application.title', defaultMessage: 'Application' },
@@ -9,11 +7,11 @@ const defaultGlobalLinks = [
     permissions: [],
   },
   {
-    intlLabel: { id: 'Settings.webhooks.title', defaultMessage: 'Webhooks' },
-    to: '/settings/webhooks',
-    id: 'webhooks',
+    intlLabel: { id: 'Settings.apiTokens.title', defaultMessage: 'API Tokens' },
+    to: '/settings/api-tokens',
+    id: 'api-tokens',
     isDisplayed: false,
-    permissions: adminPermissions.settings.webhooks.main,
+    permissions: [],
   },
 ];
 
