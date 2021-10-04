@@ -5,6 +5,7 @@ import { Router, Route } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { useRBAC } from '@strapi/helper-plugin';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { subMinutes } from 'date-fns';
 import { axiosInstance } from '../../../../../../core/utils';
 import Theme from '../../../../../../components/Theme';
 import ListView from '../index';
@@ -26,6 +27,7 @@ jest.spyOn(axiosInstance, 'get').mockResolvedValue({
         name: 'My super token',
         description: 'This describe my super token',
         type: 'read-only',
+        createdAt: new Date(subMinutes(new Date(), 5)).toDateString(),
       },
     ],
   },
@@ -667,7 +669,7 @@ describe('ADMIN | Pages | API TOKENS | ListPage', () => {
     `);
   });
 
-  it('should show a list of users', async () => {
+  it('should show a list of api tokens', async () => {
     const history = createMemoryHistory();
     history.push('/settings/api-tokens');
     const app = makeApp(history);

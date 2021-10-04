@@ -31,7 +31,7 @@ const Table = ({ canDelete, canUpdate, apiTokens, isLoading }) => {
                   return (
                     <Td key={key}>
                       {typeof cellFormatter === 'function' ? (
-                        cellFormatter(apiToken, { key, name, ...rest })
+                        cellFormatter(apiToken, { key, name, ...rest }, { formatMessage })
                       ) : (
                         <Text textColor="neutral800">{apiToken[name] || '-'}</Text>
                       )}

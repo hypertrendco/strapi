@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text } from '@strapi/parts/Text';
+import RelativeTime from '../../utils/RelativeTime';
 
 const tableHeaders = [
   {
@@ -10,7 +11,11 @@ const tableHeaders = [
       sortable: true,
     },
     // eslint-disable-next-line react/prop-types
-    cellFormatter: ({ name }) => <Text bold>{name}</Text>,
+    cellFormatter: ({ name }) => (
+      <Text textColor="Neutral800" bold>
+        {name}
+      </Text>
+    ),
   },
   {
     name: 'description',
@@ -34,11 +39,16 @@ const tableHeaders = [
       sortable: false,
     },
     // eslint-disable-next-line react/prop-types
-    cellFormatter: ({ type }) => (
-      <Text textColor="Neutral800" ellipsis>
-        {type === 'read-only' ? 'Read-only' : 'Full access'}
-      </Text>
-    ),
+    cellFormatter: ({ type }, _, { formatMessage }) => {
+      return (
+        <Text textColor="Neutral800" ellipsis>
+          {formatMessage({
+            id: `Settings.apiTokens.types.${type}`,
+            defaultMessage: 'Type unknown',
+          })}
+        </Text>
+      );
+    },
   },
   {
     name: 'createdAt',
@@ -46,6 +56,14 @@ const tableHeaders = [
     metadatas: {
       label: 'Created at',
       sortable: false,
+    },
+    // eslint-disable-next-line react/prop-types
+    cellFormatter: ({ createdAt }) => {
+      return (
+        <Text textColor="Neutral800" ellipsis>
+          <RelativeTime timestamp={createdAt} />
+        </Text>
+      );
     },
   },
 ];
